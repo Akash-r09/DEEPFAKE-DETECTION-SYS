@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Cyberpunk Tech Design System - All colors MUST be HSL */
+
+@layer base {
+  :root {
+    /* Dark tech base colors */
+    --background: 240 10% 3.9%;
+    --foreground: 180 100% 90%;
+    
+    /* Tech surfaces */
+    --card: 240 10% 5%;
+    --card-foreground: 180 100% 90%;
+    
+    --popover: 240 10% 5%;
+    --popover-foreground: 180 100% 90%;
+    
+    /* Neon accent colors */
+    --primary: 191 100% 50%; /* Electric Blue */
+    --primary-foreground: 240 10% 3.9%;
+    
+    --secondary: 158 100% 50%; /* Cyber Teal */
+    --secondary-foreground: 240 10% 3.9%;
+    
+    --accent: 270 100% 60%; /* Neon Purple */
+    --accent-foreground: 240 10% 3.9%;
+    
+    /* Muted tech grays */
+    --muted: 240 5% 15%;
+    --muted-foreground: 180 50% 70%;
+    
+    /* System colors */
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 180 100% 90%;
+    
+    --border: 240 20% 15%;
+    --input: 240 20% 12%;
+    --ring: 191 100% 50%;
+    
+    /* Design tokens */
+    --radius: 0.75rem;
+    
+    /* Glassmorphism */
+    --glass-bg: 240 10% 5% / 0.8;
+    --glass-border: 191 100% 50% / 0.3;
+    
+    /* Tech gradients */
+    --gradient-cyber: linear-gradient(135deg, 
+      hsl(191 100% 50% / 0.1) 0%, 
+      hsl(270 100% 60% / 0.1) 50%, 
+      hsl(158 100% 50% / 0.1) 100%);
+    
+    --gradient-neon: linear-gradient(90deg, 
+      hsl(191 100% 50%) 0%, 
+      hsl(158 100% 50%) 100%);
+    
+    /* Shadows with neon glow */
+    --shadow-neon: 0 0 20px hsl(191 100% 50% / 0.3);
+    --shadow-glow: 0 0 40px hsl(191 100% 50% / 0.2);
+    
+    /* Animation speeds */
+    --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-mono overflow-x-hidden;
+  }
+}
+
+@layer components {
+  /* Tech grid background pattern */
+  .tech-grid {
+    background-image: 
+      linear-gradient(rgba(0, 217, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 217, 255, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: grid-move 20s linear infinite;
+  }
+  
+  /* Particle animation background */
+  .particle-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-cyber);
+    opacity: 0.3;
+    animation: pulse-glow 4s ease-in-out infinite alternate;
+  }
+  
+  /* Glassmorphism panel */
+  .glass-panel {
+    background: hsla(var(--glass-bg));
+    border: 1px solid hsla(var(--glass-border));
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-neon);
+  }
+  
+  /* Neon button effects */
+  .neon-btn {
+    position: relative;
+    background: transparent;
+    border: 2px solid hsl(var(--primary));
+    color: hsl(var(--primary));
+    transition: all var(--transition-smooth);
+  }
+  
+  .neon-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-neon);
+    opacity: 0;
+    transition: opacity var(--transition-smooth);
+    border-radius: inherit;
+  }
+  
+  .neon-btn:hover {
+    box-shadow: var(--shadow-neon);
+    transform: translateY(-2px);
+  }
+  
+  .neon-btn:hover::before {
+    opacity: 0.1;
+  }
+  
+  /* Upload zone styling */
+  .upload-zone {
+    border: 2px dashed hsl(var(--border));
+    background: hsla(var(--glass-bg));
+    transition: all var(--transition-smooth);
+  }
+  
+  .upload-zone:hover,
+  .upload-zone.drag-over {
+    border-color: hsl(var(--primary));
+    background: hsla(var(--primary) / 0.05);
+    box-shadow: var(--shadow-glow);
+  }
+  
+  /* Progress bar with neon effect */
+  .progress-neon {
+    background: var(--gradient-neon);
+    box-shadow: 0 0 10px hsl(var(--primary) / 0.5);
+    animation: progress-pulse 1.5s ease-in-out infinite;
+  }
+}
+
+@layer utilities {
+  /* Animation keyframes */
+  @keyframes grid-move {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
+  }
+  
+  @keyframes pulse-glow {
+    0% { opacity: 0.2; }
+    100% { opacity: 0.4; }
+  }
+  
+  @keyframes progress-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  @keyframes glow-pulse {
+    0%, 100% { box-shadow: var(--shadow-neon); }
+    50% { box-shadow: var(--shadow-glow); }
+  }
+}
